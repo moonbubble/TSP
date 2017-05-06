@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+	<product>
+		<x>3</x>
+		<y>4</y>
+	</product>
+	<product>
+		<x>5</x>
+		<y>1</y>
+	</product>
+</order>

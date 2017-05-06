@@ -13,6 +13,12 @@ public class TSPTest {
 
 		fietsFabriek.printOrder();
 		System.out.println("Het aantal producten in deze order is: " + fietsFabriek.telAantalProducten());
+
+		// nearestneighbour zooi
+		NearestNeighbour n1 = new NearestNeighbour("5-5", "1-1");
+		n1.algoritme();
+		// s.yPlus();
+		// n1.splitString(s);
 	}
 
 }

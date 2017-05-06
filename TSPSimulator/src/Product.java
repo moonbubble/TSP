@@ -9,6 +9,26 @@ public class Product {
 	}
 	
 	public String getLocatie() {
-		return x + "." + y;
+		return x + "-" + y;
+	}
+	
+	public void xPlus() {
+		int getal = x;
+		getal++;
+		System.out.println(getal);
+	}
+	
+	public void yPlus() {
+		int getal = y;
+		getal++;
+		System.out.println(getal);
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 }

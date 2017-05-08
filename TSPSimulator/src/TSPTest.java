@@ -15,8 +15,8 @@ public class TSPTest {
 		System.out.println("Het aantal producten in deze order is: " + fietsFabriek.telAantalProducten());
 
 		// nearestneighbour zooi
-		NearestNeighbour n1 = new NearestNeighbour("5-5", "1-1");
-		n1.algoritme();
+		Functies f1 = new Functies(s, a);
+		f1.routeBerekenen();
 		// s.yPlus();
 		// n1.splitString(s);
 	}

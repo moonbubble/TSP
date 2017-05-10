@@ -27,14 +27,24 @@ public class TSPTest {
 
 		// System.out.println("Het aantal producten in deze order is: " +
 		// fietsFabriek.telAantalProducten());
+		
+		// randompath zooi
+		RandomPath rp1 = new RandomPath();
+		Order random = rp1.maakOrder(6);
+//		NearestNeighbour n3 = new NearestNeighbour(random);
+//		n3.nnAlgoritme();
+		
+//		
+//		System.out.println();
+//		// nearestneighbour zooi
+//		NearestNeighbour n1 = new NearestNeighbour(fietsFabriek);
+		RandomPath n2 = new RandomPath(random);
+		n2.rpAlgoritme();
+//		System.out.println("HIER KOMT HET ALGORITME ONDER");
+//		n1.algoritme();
+//		System.out.println();
+//		n2.algoritme();
 
-		// nearestneighbour zooi
-		NearestNeighbour n1 = new NearestNeighbour(fietsFabriek);
-		NearestNeighbour n2 = new NearestNeighbour(speeltuin);
-		System.out.println("HIER KOMT HET ALGORITME ONDER");
-		n1.algoritme();
-		System.out.println();
-		n2.algoritme();
 	}
 
 }

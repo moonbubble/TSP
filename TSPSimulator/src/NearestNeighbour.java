@@ -3,8 +3,6 @@ import java.util.ArrayList;
 public class NearestNeighbour implements Functies {
 	private ArrayList<Product> order;
 	private ArrayList<Product> route;
-	private String beginPunt;
-	private String volgendePunt;
 	private int stappen;
 	private Product goeie;
 	private int temp;
@@ -19,7 +17,7 @@ public class NearestNeighbour implements Functies {
 	}
 
 	public void printRoute() {
-		System.out.println("--- ROUTE ---");
+		System.out.println("--- NEARESTNEIGHBOUR ROUTE ---");
 		for (Product p : route) {
 			System.out.println(p.getLocatie());
 		}
@@ -33,14 +31,10 @@ public class NearestNeighbour implements Functies {
 	}
 
 	public void routeBerekenen(Product bp, Product vp) {
-		beginPunt = bp.getLocatie();
-		volgendePunt = vp.getLocatie();
-		String[] output1 = beginPunt.split("-");
-		String[] output2 = volgendePunt.split("-");
-		int posX1 = Integer.parseInt(output1[0]);
-		int posY1 = Integer.parseInt(output1[1]);
-		int posX2 = Integer.parseInt(output2[0]);
-		int posY2 = Integer.parseInt(output2[1]);
+		int posX1 = bp.getX();
+		int posY1 = bp.getY();
+		int posX2 = vp.getX();
+		int posY2 = vp.getY();
 		int difX = 0;
 		int difY = 0;
 		if (posX1 > posX2) {
@@ -62,17 +56,16 @@ public class NearestNeighbour implements Functies {
 //		System.out.println("aantal stappen = " + stappen);
 	}
 
-	public void algoritme() {
+	public void nnAlgoritme() {
+		printOrder();
 		goeie = order.get(0);
 		while (order.size() > 0) {
 			voegProductToeAanRoute(goeie);
 			order.remove(goeie);
 			Product kruisje = goeie;
-			System.out.println(
-					"(" + kruisje.getLocatie() + ") toegevoegd aan route en verwijderd uit order");
+//			System.out.println(
+//					"(" + kruisje.getLocatie() + ") toegevoegd aan route en verwijderd uit order");
 			temp = 1000;
-			printRoute();
-			printOrder();
 			for (int i = 0; i < order.size(); i++) {
 				Product rondje = order.get(i);
 				routeBerekenen(kruisje, rondje);
@@ -81,46 +74,7 @@ public class NearestNeighbour implements Functies {
 					goeie = rondje;
 				}
 			}
-
 		}
-		// voegProductToeAanRoute(goeie);
-		// order.remove(goeie);
-		// System.out.println(goeie.getLocatie() + " toegevoegd aan route en
-		// verwijderd uit order");
-		// printRoute();
-		// printOrder();
-
-		// int kortsteAantal = 1000;
-		// for (int i = 0; i < order.size(); i++) {
-		// Product ditProduct = route.get(route.size() - 1);
-		// routeBerekenen(ditProduct, order.get(0)); //dit order.get(0) klopt
-		// niet denk ik
-		// if (stappen < kortsteAantal) {
-		// kortsteAantal = stappen;
-		// System.out.println(kortsteAantal);
-		// voegProductToeAanRoute(order.get(i)); // die order.get(i) klopt ook
-		// niet
-		// order.remove(i);
-		// }
-		// }
-		// printRoute();
+		printRoute();
 	}
-
-	// public void algoritme() {
-	// voegProductToeAanRoute(order.get(0));
-	// order.remove(0);
-	// int kortsteAantal = 1000;
-	// for (int i = 0; i < order.size(); i++) {
-	// Product ditProduct = route.get(route.size() - 1);
-	// routeBerekenen(ditProduct, order.get(0)); //dit order.get(0) klopt niet
-	// denk ik
-	// if (stappen < kortsteAantal) {
-	// kortsteAantal = stappen;
-	// System.out.println(kortsteAantal);
-	// voegProductToeAanRoute(order.get(i)); // die order.get(i) klopt ook niet
-	// order.remove(i);
-	// }
-	// }
-	// printRoute();
-	// }
 }

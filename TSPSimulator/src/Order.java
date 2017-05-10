@@ -25,4 +25,8 @@ public class Order {
 				System.out.println(p.getLocatie());
 		}
 	}
+	
+	public ArrayList<Product> getOrder() {
+		return order;
+	}
 }

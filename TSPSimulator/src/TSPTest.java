@@ -30,7 +30,7 @@ public class TSPTest {
 		
 		// randompath zooi
 		RandomPath rp1 = new RandomPath();
-		Order random = rp1.maakOrder(28);
+		Order random = rp1.maakOrder(15);
 //		NearestNeighbour n3 = new NearestNeighbour(random);
 //		n3.nnAlgoritme();
 		

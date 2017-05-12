@@ -32,7 +32,7 @@ public class RandomPath implements Functies {
 	public void printOrder() {
 		System.out.println("--- ORDER ---");
 		for (Product p : order) {
-			System.out.println(p.getLocatie() );
+			System.out.println(p.getLocatie());
 		}
 	}
 
@@ -49,44 +49,31 @@ public class RandomPath implements Functies {
 		Product p = new Product(x, y);
 		return p;
 	}
-	
-	public void vergelijken(Product pro) {
-		if (order.size() > 0) {
-			for (int l = 0; l < order.size(); l++) { //doorloop de order
-				int vergelijkX = order.get(l).getX(); //de locatie van een bepaalde index van de order
-				int vergelijkY = order.get(l).getY();
-				String vergelijkLocatie = order.get(l).getLocatie();
-				while (pro.getX() == vergelijkX && pro.getY() == vergelijkY) {
-//					System.out.println(pro.getX() + " | " + vergelijkX + " ||| " + pro.getY() + " | " + vergelijkY + " is gelijk");
-					pro = maakRandomProduct();
-//					System.out.println(pro.getX() + " | " + vergelijkX + " ||| " + pro.getY() + " | " + vergelijkY + " is lekker niet gelijk");
-					System.out.println("	2e check: " + vergelijkLocatie + " is " + pro.getLocatie() + " geworden.");
-				} 
-			}
-		}
-	}
 
 	public Order maakOrder(int aantalItems) {
 		Order ord = new Order();
 		for (int i = 0; i < aantalItems; i++) {
 			Product pro = maakRandomProduct(); // maak één random product aan
 			if (ord.getOrder().size() > 0) {
-				for (int j = 0; j < ord.getOrder().size(); j++) { //doorloop de order
-					int vergelijkX = ord.getOrder().get(j).getX(); //de locatie van een bepaalde index van de order
-					int vergelijkY = ord.getOrder().get(j).getY();
-					String vergelijkLocatie = ord.getOrder().get(j).getLocatie();
-					while (pro.getX() == vergelijkX && pro.getY() == vergelijkY) {
-//						System.out.println(pro.getX() + " | " + vergelijkX + " ||| " + pro.getY() + " | " + vergelijkY + " is gelijk");
-						pro = maakRandomProduct();
-//						System.out.println(pro.getX() + " | " + vergelijkX + " ||| " + pro.getY() + " | " + vergelijkY + " is lekker niet gelijk");
-						System.out.println("1e check: " + vergelijkLocatie + " is " + pro.getLocatie() + " geworden.");	
-					} 
+				for (int m = 0; m < ord.getOrder().size(); m++) {
+					for (int j = 0; j < ord.getOrder().size(); j++) { 
+						int vergelijkX = ord.getOrder().get(j).getX(); 
+						int vergelijkY = ord.getOrder().get(j).getY();
+						while (pro.getX() == vergelijkX && pro.getY() == vergelijkY) {
+							pro = maakRandomProduct();
+						}
+					}
 				}
 			}
 			ord.getOrder().add(pro);
 		}
 		ord.printOrder();
 		return ord;
+	}
+	
+	public void buurmanMol(String tekst) {
+		tekst = tekst.substring(0, 1).toUpperCase() + tekst.substring(1);
+		System.out.println("'" + tekst + "', zei buurman Mol.");
 	}
 
 	public void algoritme() {

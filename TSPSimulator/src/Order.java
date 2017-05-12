@@ -21,8 +21,9 @@ public class Order {
 
 	public void printOrder() {
 		System.out.println("--- ORDER ---");
+		int index = 0;
 		for (Product p : order) {	
-				System.out.println(p.getLocatie());
+				System.out.println((index++) + ". " + p.getLocatie());
 		}
 	}
 	

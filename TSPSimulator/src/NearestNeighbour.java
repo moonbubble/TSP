@@ -56,7 +56,7 @@ public class NearestNeighbour implements Functies {
 //		System.out.println("aantal stappen = " + stappen);
 	}
 
-	public void nnAlgoritme() {
+	public void algoritme() {
 		printOrder();
 		goeie = order.get(0);
 		while (order.size() > 0) {

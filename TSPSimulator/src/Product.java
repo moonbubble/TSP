@@ -12,16 +12,42 @@ public class Product {
 		return x + "-" + y;
 	}
 	
-	public void xPlus() {
+	public Product xPlus(Product p) {
 		int getal = x;
 		getal++;
-		System.out.println(getal);
+		int y = p.getY();
+//		System.out.println(getal);
+		Product pro = new Product(getal, y);
+		System.out.println("test: " + pro.getLocatie());
+		return pro;
 	}
 	
-	public void yPlus() {
+	public Product yPlus(Product p) {
 		int getal = y;
 		getal++;
-		System.out.println(getal);
+		int x = p.getX();
+//		System.out.println(getal);
+		Product pro = new Product(x, getal);
+		System.out.println("test: " + pro.getLocatie());
+		return pro;
+	}
+	
+	public Product xMin(Product p) {
+		int getal = x;
+		getal--;
+		int y = p.getY();
+		Product pro = new Product(getal, y);
+		System.out.println("test: " + pro.getLocatie());
+		return pro;
+	}
+	
+	public Product yMin(Product p) {
+		int getal = y;
+		getal--;
+		int x = p.getX();
+		Product pro = new Product(x, getal);
+		System.out.println("test: " + pro.getLocatie());
+		return pro;
 	}
 	
 	public int getX() {

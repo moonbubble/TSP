@@ -7,6 +7,7 @@ public class NearestNeighbour implements Functies {
 	private int stappen;
 	private Product goeie;
 	private int temp;
+	private boolean iNeedYou = false;
 
 	public NearestNeighbour(Order order) {
 		this.order = order.getOrder();
@@ -16,6 +17,10 @@ public class NearestNeighbour implements Functies {
 
 	public void voegProductToeAanRoute(Product p) {
 		this.route.add(p);
+	}
+	
+	public void voegProductToeAanBezocht(Product p) {
+		this.bezocht.add(p);
 	}
 
 	public void printRoute() {
@@ -41,21 +46,42 @@ public class NearestNeighbour implements Functies {
 		int difY = 0;
 		if (posX1 > posX2) {
 			difX = posX1 - posX2;
-//			System.out.println(difX + " naar links");
+			System.out.println(difX + " naar links");
+			Product nieuwRecord;
+			for (int i = 1; i <= difX; i++) {
+				nieuwRecord = bp.xMin(bp);
+				bp = nieuwRecord;
+			}
 		} else if (posX1 < posX2) {
 			difX = posX2 - posX1;
-//			System.out.println(difX + " naar rechts");
+			System.out.println(difX + " naar rechts");
+			Product nieuwRecord;
+			for (int i = 1; i <= difX; i++) {
+				nieuwRecord = bp.xPlus(bp);
+				bp = nieuwRecord;
+			}
 		}
 
 		if (posY1 > posY2) {
 			difY = posY1 - posY2;
-//			System.out.println(difY + " naar beneden");
+			System.out.println(difY + " naar beneden");
+			Product nieuwRecord;
+			for (int i = 1; i <= difY; i++) {
+				nieuwRecord = bp.yMin(bp);
+				bp = nieuwRecord;
+			}
 		} else if (posY1 < posY2) {
 			difY = posY2 - posY1;
-//			System.out.println(difY + " naar boven");
+			System.out.println(difY + " naar boven");
+			Product nieuwRecord;
+			for (int i = 1; i <= difY; i++) {
+				nieuwRecord = bp.yPlus(bp);
+				bp = nieuwRecord;
+			}
 		}
-		return stappen = difX + difY;
-//		System.out.println("aantal stappen = " + stappen);
+		stappen = difX + difY;
+		System.out.println("aantal stappen naar " + vp.getLocatie() + " = " + stappen);
+		return stappen;
 	}
 
 	public void algoritme() {
@@ -65,8 +91,8 @@ public class NearestNeighbour implements Functies {
 			voegProductToeAanRoute(goeie);
 			order.remove(goeie);
 			Product kruisje = goeie;
-//			System.out.println(
-//					"(" + kruisje.getLocatie() + ") toegevoegd aan route en verwijderd uit order");
+			System.out.println(
+					"(" + kruisje.getLocatie() + ") toegevoegd aan route en verwijderd uit order");
 			temp = 1000;
 			for (int i = 0; i < order.size(); i++) {
 				Product rondje = order.get(i);

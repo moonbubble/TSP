@@ -67,7 +67,6 @@ public class RandomPath implements Functies {
 			}
 			ord.getOrder().add(pro);
 		}
-		ord.printOrder();
 		return ord;
 	}
 	

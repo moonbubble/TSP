@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class NearestNeighbour implements Functies {
 	private ArrayList<Product> order;
 	private ArrayList<Product> route;
+	private ArrayList<Product> bezocht;
 	private int stappen;
 	private Product goeie;
 	private int temp;
@@ -10,6 +11,7 @@ public class NearestNeighbour implements Functies {
 	public NearestNeighbour(Order order) {
 		this.order = order.getOrder();
 		route = new ArrayList<Product>();
+		bezocht = new ArrayList<Product>();
 	}
 
 	public void voegProductToeAanRoute(Product p) {
@@ -30,7 +32,7 @@ public class NearestNeighbour implements Functies {
 		}
 	}
 
-	public void routeBerekenen(Product bp, Product vp) {
+	public int routeBerekenen(Product bp, Product vp) {
 		int posX1 = bp.getX();
 		int posY1 = bp.getY();
 		int posX2 = vp.getX();
@@ -52,7 +54,7 @@ public class NearestNeighbour implements Functies {
 			difY = posY2 - posY1;
 //			System.out.println(difY + " naar boven");
 		}
-		stappen = difX + difY;
+		return stappen = difX + difY;
 //		System.out.println("aantal stappen = " + stappen);
 	}
 

@@ -157,6 +157,7 @@ public class TspScherm extends JFrame implements ActionListener
         radioButtons.add(JRBannealing);
                 
         pack();
+        this.setLocationRelativeTo(null);
         setVisible(true);
         
     }
@@ -167,12 +168,14 @@ public class TspScherm extends JFrame implements ActionListener
     	if(e.getSource().equals(jbInstellingen))
     	{
     		TspInstellingen tspInstellingen = new TspInstellingen(this);
+    		tspInstellingen.setLocationRelativeTo(null);
     		tspInstellingen.setVisible(true);
     		tspInstellingen.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
     	}
     	else if(e.getSource().equals(jbOrder))
     	{
     		TspOrder TspOrder = new TspOrder(this);
+    		TspOrder.setLocationRelativeTo(null);
     		TspOrder.setVisible(true);
     		TspOrder.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
     	}

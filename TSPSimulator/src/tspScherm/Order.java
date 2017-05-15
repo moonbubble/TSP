@@ -1,16 +1,17 @@
 package tspScherm;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 public class Order
 {
-	private Date datum;
+	private int ordernr;
+	private String datum;
 	private ArrayList<Product> order;
 	private Klant klant;
 	
-	public Order(Date datum, Klant klant)
+	public Order(int ordernr, String datum, Klant klant)
 	{
+		this.ordernr = ordernr;
 		this.datum = datum;
 		this.klant = klant;
 	}
@@ -20,9 +21,19 @@ public class Order
 		order.add(p);
 	}
 	
+	public void setOrder(ArrayList<Product> o)
+	{
+		this.order = o;
+	}
+	
 	public ArrayList<Product> getOrder()
 	{
 		return order;
+	}
+	
+	public int getordernr()
+	{
+		return ordernr;
 	}
 	
 	public Klant getKlant()
@@ -30,7 +41,7 @@ public class Order
 		return klant;
 	}
 	
-	public Date getDatum()
+	public String getDatum()
 	{
 		return datum;
 	}

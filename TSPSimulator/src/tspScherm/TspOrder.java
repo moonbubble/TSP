@@ -1,6 +1,7 @@
 package tspScherm;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -27,7 +28,7 @@ public class TspOrder extends JDialog implements ActionListener
     {
 		super(frame, true);
         setTitle("TSP instellingen");
-        this.setPreferredSize(new Dimension(700, 500));
+        this.setPreferredSize(new Dimension(700, 500));        
         setLayout(null);
         
         jbUpload = new JButton("Upload XML");
@@ -51,7 +52,7 @@ public class TspOrder extends JDialog implements ActionListener
         jbOpslaan.addActionListener(this);
         add(jbOpslaan);
         
-        pack();
+        pack();        
     }
 	
 	@Override
@@ -70,6 +71,8 @@ public class TspOrder extends JDialog implements ActionListener
 
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            File file = fc.getSelectedFile();
+	            XML parser = new XML(file);
+	            order = XML.getData();
 	        }
 	   }
     }

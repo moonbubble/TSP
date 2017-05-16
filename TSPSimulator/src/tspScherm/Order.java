@@ -38,7 +38,7 @@ public class Order
 		return order;
 	}
 	
-	public int getordernr()
+	public int getOrdernr()
 	{
 		return ordernr;
 	}

@@ -182,6 +182,7 @@ public class TspScherm extends JFrame implements ActionListener
     		TspOrder.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
     		
     		this.order = TspOrder.order;
+    		jpGraphic.paintPoints(this.order);
     	}
     }
 }

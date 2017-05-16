@@ -14,6 +14,23 @@ public class TspGraphic extends JPanel
 		setOpaque(false);
 	}
 	
+    public void paintPoints(Order o)
+    {
+    	Graphics g = this.getGraphics();
+    	Graphics2D gg = (Graphics2D) g;
+    	gg.drawOval(100, 100, 100, 100);
+    	/*
+    	for(Product p : o.getOrder())
+    	{
+    		int x = 50 + (p.getX() * 130);
+    		int y = 15 + (p.getY() * 85);
+    		System.out.println("(" + x + "," + y + ")");
+    		g.setColor(Color.BLUE);
+    		g.drawOval(x, y, 50, 50);
+    	}*/
+    	this.repaint();
+    }
+	
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponents(g);

@@ -77,7 +77,7 @@ public class XML
 			dbf = DocumentBuilderFactory.newInstance();
 			
 			db = dbf.newDocumentBuilder();
-			document = db.parse("TSPSimulator/bin/database.xml");
+			document = db.parse("bin/database.xml");
 
 			NodeList productList = document.getElementsByTagName("Product");
 

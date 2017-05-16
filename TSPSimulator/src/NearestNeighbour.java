@@ -7,7 +7,7 @@ public class NearestNeighbour implements Functies {
 	private int stappen;
 	private Product goeie;
 	private int temp;
-	private boolean iNeedYou = false;
+//	private boolean iNeedYou = false;
 
 	public NearestNeighbour(Order order) {
 		this.order = order.getOrder();

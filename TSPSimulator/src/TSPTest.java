@@ -11,11 +11,11 @@ public class TSPTest {
 		Product t = new Product(5, 4);
 		Product u = new Product(3, 2);
 		
-		Product a1 = new Product(1, 3);
-		Product a2 = new Product(3, 4);
-		Product a3 = new Product(3, 2);
-		Product a4 = new Product(1, 2);
-		Product a5 = new Product(5, 4);
+		Product a1 = new Product(3, 4);
+		Product a2 = new Product(4, 3);
+		Product a3 = new Product(2, 2);
+		Product a4 = new Product(2, 4);
+		Product a5 = new Product(4, 2);
 		Product a6 = new Product(2, 1);
 		
 
@@ -38,7 +38,7 @@ public class TSPTest {
 		konijn.voegProductToe(a3);
 		konijn.voegProductToe(a4);
 		konijn.voegProductToe(a5); 
-		konijn.voegProductToe(a6);
+//		konijn.voegProductToe(a6);
 
 		// fietsFabriek.printOrder();
 
@@ -49,7 +49,7 @@ public class TSPTest {
 		RandomPath rp1 = new RandomPath();
 		Order random = rp1.maakOrder(6);
 //		random.printOrder();
-		NearestNeighbour n7 = new NearestNeighbour(konijn);
+		NearestNeighbour n7 = new NearestNeighbour(random);
 		n7.algoritme();
 //		OptExchange n6 = new OptExchange(fietsen);
 //		n6.algoritme();

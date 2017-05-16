@@ -18,7 +18,7 @@ public class Product {
 		int y = p.getY();
 //		System.out.println(getal);
 		Product pro = new Product(getal, y);
-		System.out.println("test: " + pro.getLocatie());
+//		System.out.println("test: " + pro.getLocatie());
 		return pro;
 	}
 	
@@ -28,7 +28,7 @@ public class Product {
 		int x = p.getX();
 //		System.out.println(getal);
 		Product pro = new Product(x, getal);
-		System.out.println("test: " + pro.getLocatie());
+//		System.out.println("test: " + pro.getLocatie());
 		return pro;
 	}
 	
@@ -37,7 +37,7 @@ public class Product {
 		getal--;
 		int y = p.getY();
 		Product pro = new Product(getal, y);
-		System.out.println("test: " + pro.getLocatie());
+//		System.out.println("test: " + pro.getLocatie());
 		return pro;
 	}
 	
@@ -46,7 +46,7 @@ public class Product {
 		getal--;
 		int x = p.getX();
 		Product pro = new Product(x, getal);
-		System.out.println("test: " + pro.getLocatie());
+//		System.out.println("test: " + pro.getLocatie());
 		return pro;
 	}
 	

@@ -38,48 +38,7 @@ public class NearestNeighbour implements Functies {
 	}
 
 	public int routeBerekenen(Product bp, Product vp) {
-		int posX1 = bp.getX();
-		int posY1 = bp.getY();
-		int posX2 = vp.getX();
-		int posY2 = vp.getY();
-		int difX = 0;
-		int difY = 0;
-		if (posX1 > posX2) {
-			difX = posX1 - posX2;
-			System.out.println(difX + " naar links");
-			Product nieuwRecord;
-			for (int i = 1; i <= difX; i++) {
-				nieuwRecord = bp.xMin(bp);
-				bp = nieuwRecord;
-			}
-		} else if (posX1 < posX2) {
-			difX = posX2 - posX1;
-			System.out.println(difX + " naar rechts");
-			Product nieuwRecord;
-			for (int i = 1; i <= difX; i++) {
-				nieuwRecord = bp.xPlus(bp);
-				bp = nieuwRecord;
-			}
-		}
-
-		if (posY1 > posY2) {
-			difY = posY1 - posY2;
-			System.out.println(difY + " naar beneden");
-			Product nieuwRecord;
-			for (int i = 1; i <= difY; i++) {
-				nieuwRecord = bp.yMin(bp);
-				bp = nieuwRecord;
-			}
-		} else if (posY1 < posY2) {
-			difY = posY2 - posY1;
-			System.out.println(difY + " naar boven");
-			Product nieuwRecord;
-			for (int i = 1; i <= difY; i++) {
-				nieuwRecord = bp.yPlus(bp);
-				bp = nieuwRecord;
-			}
-		}
-		stappen = difX + difY;
+		stappen = bp.meetAfstand(vp);
 		System.out.println("aantal stappen naar " + vp.getLocatie() + " = " + stappen);
 		return stappen;
 	}

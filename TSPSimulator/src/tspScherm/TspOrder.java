@@ -77,6 +77,8 @@ public class TspOrder extends JDialog implements ActionListener
 		
 		table.getTableHeader().setFont(new Font("Roboto", Font.PLAIN, 15));
 		table.setFont(new Font("Roboto", Font.PLAIN, 15));
+		table.setFocusable(false);
+		table.setRowSelectionAllowed(false);
 		
 		JTableUtilities.setCellsAlignment(table, SwingConstants.CENTER);
 		
@@ -88,14 +90,31 @@ public class TspOrder extends JDialog implements ActionListener
 	
 	private Order makeRandomOrder(int a)
 	{
-		Order randomOrder = new Order();	
+		Order randomOrder = new Order();
+		
+		int artikelnr = (int)(Math.random() * 25);
+		
+		randomOrder.voegProductToe(new Product(
+				Integer.parseInt(Main.database[artikelnr][0]),
+				Integer.parseInt(Main.database[artikelnr][1]),
+				Integer.parseInt(Main.database[artikelnr][2]),
+				Integer.parseInt(Main.database[artikelnr][3]),
+				Main.database[artikelnr][4]
+				));
 		
 		while(randomOrder.getOrder().size() < a)
 		{
-			int artikelnr = (int)(Math.random() * 25);
-			System.out.println(artikelnr);
+			artikelnr = (int)(Math.random() * 25);
+			boolean exists = false;
 			
-			if(randomOrder.getOrder().size() == 0)
+			for(Product product :randomOrder.getOrder())
+			{
+				if(artikelnr + 1 == product.getArtikelnr())
+				{
+					exists = true;
+				}
+			}
+			if(!exists)
 			{
 				randomOrder.voegProductToe(new Product(
 						Integer.parseInt(Main.database[artikelnr][0]),
@@ -105,11 +124,6 @@ public class TspOrder extends JDialog implements ActionListener
 						Main.database[artikelnr][4]
 						));
 			}
-			else
-			{
-				for()
-			}
-			
 		}
 		return randomOrder;
 	}

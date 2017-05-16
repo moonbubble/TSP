@@ -6,8 +6,15 @@ public class Order
 {
 	private int ordernr;
 	private String datum;
-	private ArrayList<Product> order;
+	private ArrayList<Product> order = new ArrayList<>();
 	private Klant klant;
+	
+	public Order()
+	{
+		this.ordernr = 999;
+		this.datum = "01-01-2000";
+		this.klant = new Klant("John", "Doe", "JohnDoeStreet 1", "1234 JD", "JohnDoeVille");
+	}
 	
 	public Order(int ordernr, String datum, Klant klant)
 	{

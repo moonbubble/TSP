@@ -7,7 +7,7 @@ public class Product {
 	private int gewicht;
 	private int artikelnr;
 	
-	public Product(int x, int y, String naam, int gewicht, int artikelnr) {
+	public Product(int artikelnr, int x, int y, int gewicht, String naam) {
 		this.x = x;
 		this.y = y;
 		this.naam = naam;

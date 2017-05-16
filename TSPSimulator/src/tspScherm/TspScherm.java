@@ -29,6 +29,8 @@ public class TspScherm extends JFrame implements ActionListener
     private JRadioButton JRBexchange;
     private JRadioButton JRBannealing;
     
+    private Order order;
+    
     public TspScherm()
     {
         setTitle("TSP simulator");
@@ -178,6 +180,8 @@ public class TspScherm extends JFrame implements ActionListener
     		TspOrder.setLocationRelativeTo(null);
     		TspOrder.setVisible(true);
     		TspOrder.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+    		
+    		this.order = TspOrder.order;
     	}
     }
 }

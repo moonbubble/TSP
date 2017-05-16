@@ -37,7 +37,7 @@ public class TSPTest {
 		konijn.voegProductToe(a2);
 		konijn.voegProductToe(a3);
 		konijn.voegProductToe(a4);
-		konijn.voegProductToe(a5); 
+//		konijn.voegProductToe(a5); 
 //		konijn.voegProductToe(a6);
 
 		// fietsFabriek.printOrder();
@@ -50,7 +50,7 @@ public class TSPTest {
 		Order random = rp1.maakOrder(6);
 //		random.printOrder();
 		NearestNeighbour n7 = new NearestNeighbour(random);
-		n7.algoritme();
+		konijn.printOrder();
 //		OptExchange n6 = new OptExchange(fietsen);
 //		n6.algoritme();
 //		rp1.buurmanMol("gooi hem eruit");

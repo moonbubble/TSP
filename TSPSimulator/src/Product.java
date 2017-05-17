@@ -36,6 +36,11 @@ public class Product {
 		return deltaLongitude + deltaLatitude;
 	}
 	
+	@Override
+	public String toString() {
+		return naam;
+	}
+	
 	public Product xPlus(Product p) {
 		int getal = x;
 		getal++;

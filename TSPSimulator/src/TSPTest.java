@@ -2,6 +2,7 @@
 public class TSPTest {
 
 	public static void main(String[] args) {
+		
 		Product s = new Product(1, 4);
 		Product v = new Product(1, 2);
 		Product a = new Product(1, 1);
@@ -15,10 +16,11 @@ public class TSPTest {
 		Product a2 = new Product("b", 4, 3);
 		Product a3 = new Product("c", 2, 2);
 		Product a4 = new Product("d", 5, 1);
+		
 //		Product a5 = new Product(4, 2);
 //		Product a6 = new Product(2, 1);
 		
-		int distance1to2 = a2.meetAfstand(a1);
+		int distance1to2 = a4.meetAfstand(a3);
 		System.out.println(distance1to2);
 		
 
@@ -36,10 +38,10 @@ public class TSPTest {
 		speeltuin.voegProductToe(u);
 		
 		Order konijn = new Order();
-		konijn.voegProductToe(a2);
 		konijn.voegProductToe(a1);
-		konijn.voegProductToe(a4);
+		konijn.voegProductToe(a2);
 		konijn.voegProductToe(a3);
+		konijn.voegProductToe(a4);
 //		konijn.voegProductToe(a5); 
 //		konijn.voegProductToe(a6);
 		

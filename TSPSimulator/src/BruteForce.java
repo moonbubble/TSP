@@ -12,7 +12,7 @@ public class BruteForce {
 			Collections.swap(currentRoute.getOrder(), x, indexOfY);
 		});
 		if (x == currentRoute.getOrder().size() - 1) {
-			if (Driver.VERBOSE_FLAG) {
+			if (Driver.VERBOSE_FLAG) { 
 				System.out.print(currentRoute + " |      " + getTotaleAfstand(currentRoute));
 			}
 			if ((int)berekenTotaleAfstand(currentRoute) <= (int)berekenTotaleAfstand(shortestRoute)) {
@@ -28,22 +28,27 @@ public class BruteForce {
 	}
 
 	public int berekenTotaleAfstand(Route route) {
-		int orderGrootte = route.getOrder().size();	
-		return (int) (route.getOrder().stream().mapToDouble(x -> {
-			int productIndex = route.getOrder().indexOf(x);
-			double returnValue = 0;
-			if (productIndex < orderGrootte - 1) returnValue = x.meetAfstand(route.getOrder().get(productIndex + 1));
-			return returnValue;
-		}).sum() + route.getOrder().get(0).meetAfstand(route.getOrder().get(orderGrootte - 1)));
+		int orderGrootte = route.getOrder().size();	 // orderGrootte is hoeveel items er in de order zitten
+		return (int) (route.getOrder().stream().mapToDouble(x -> { // DIT SNAP IK DUS NIET HELEMAAL
+			int productIndex = route.getOrder().indexOf(x); //productIndex is de index van de order die bij item x van de order hoort
+			int returnValue = 0; //returnvalue is 0 (dit was eerst een double)
+			if (productIndex < orderGrootte - 1) { //als de index kleiner is dan de grootte van de order-1
+				returnValue = x.meetAfstand(route.getOrder().get(productIndex + 1)); //returnvalue wordt de afstand vanaf item x tot het item dat na x in de order komt
+			}
+			return returnValue; 
+		}).sum() 
+//				+ route.getOrder().get(0).meetAfstand(route.getOrder().get(orderGrootte - 1)) //hier wordt de afstand gemeten tussen het eerste item uit de route en het laatste
+						);
 	}
-	public String getTotaleAfstand(Route route) {
+	public String getTotaleAfstand(Route route) {  // wordt gewoon wat aan de value veranderd, namelijk een spatie
 		String returnValue = Integer.toString(berekenTotaleAfstand(route));
-		if (returnValue.length() == 4) returnValue = " " + returnValue;
+		if (returnValue.length() == 1) returnValue = " " + returnValue;
 		else if (returnValue.length() == 3) returnValue = " " + returnValue;
 		return returnValue;
 	}
 	public void voegToeAanKortsteRoutes(Route route) {
-		shortestRoutes.removeIf(x -> (int)berekenTotaleAfstand(x) > (int)berekenTotaleAfstand(route));
+		shortestRoutes.removeIf(x -> berekenTotaleAfstand(x) > berekenTotaleAfstand(route)); //als de totale afstand van x groter is dan de totale afstand van de route wordt  
+			//eerst stond er removeIf(x -> (int)berekenTotaleAfstand(x) > (int)berekenTotaleAfstand(route))
 		shortestRoutes.add(route);
 	}
 }

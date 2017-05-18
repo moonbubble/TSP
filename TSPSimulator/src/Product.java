@@ -38,7 +38,11 @@ public class Product {
 	
 	@Override
 	public String toString() {
-		return naam;
+		if (naam != null) {
+			return naam;
+		} else {
+			return "(" + x + "," + y + ")";
+		}
 	}
 	
 	public int getX() {

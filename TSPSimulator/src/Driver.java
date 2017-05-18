@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Driver {
 	private static ArrayList<Product> initialRoute;
 	
-	final static boolean VERBOSE_FLAG = true;
+//	final static boolean VERBOSE_FLAG = false;
 	
 	public Driver(Order order) {
 		Driver.initialRoute = order.getOrder();
@@ -24,60 +24,35 @@ public class Driver {
 		konijn.voegProductToe(a3);
 		konijn.voegProductToe(a4);
 		konijn.voegProductToe(a5);
-		Driver driver = new Driver(konijn);
+		Product b1 = new Product(3, 2);
+		Product b2 = new Product(5, 4);
+		Product b3 = new Product(2, 1);
+		Product b4 = new Product(1, 3);
+		Order banaan = new Order();
+		banaan.voegProductToe(b1);
+		banaan.voegProductToe(b2);
+		banaan.voegProductToe(b3);
+		banaan.voegProductToe(b4);
+//		Driver driver = new Driver(konijn);
+		Driver driver = new Driver(banaan);
 		BruteForce bruteForce = new BruteForce();
 		Route currentRoute = new Route(initialRoute);
-		if (VERBOSE_FLAG) {
-			driver.printHeading("Route", "Afstand   |   Kortste Afstand   |    #");
-		} else {
-			System.out.println("in progress ...");
-		}
-		
-		driver.printResults(bruteForce, bruteForce.permuteProducts(0, currentRoute, new Route(currentRoute)));
+		driver.ontvangRoute(bruteForce, bruteForce.permuteProducts(0, currentRoute, new Route(currentRoute)));
+//		driver.printResults(bruteForce, bruteForce.permuteProducts(0, currentRoute, new Route(currentRoute)));
 		
 	}
-	public void ontvangRoute(ArrayList<Route> shortestRoutes) {
+	public ArrayList<Product> ontvangRoute(BruteForce bruteForce, ArrayList<Route> shortestRoutes) {
+		int index = 0;
+		ArrayList<Product> route = new ArrayList<Product>();
 		for (Route r : shortestRoutes) {
-			System.out.println(r);
+			if(index == 0) {
+				route = r.getOrder();
+			}
+//			System.out.println((index++) + ": " + r);
 		}
+//		System.out.println(route + " | " + bruteForce.getTotaleAfstand(shortestRoutes.get(0)));
+		return route;
 	}
 	
-	public void printResults(BruteForce bruteForce, ArrayList<Route> shortestRoutes) {
-		if (VERBOSE_FLAG) {
-			System.out.println("");
-		}
-		printHeading("Kortste route ", "Afstand");
-//		for (int i = 0; i < shortestRoutes.size(); i++) {
-//			System.out.println(shortestRoutes.get(i) + " | " + bruteForce.getTotaleAfstand(shortestRoutes.get(i)));
-//		}
-		
-		for(Route r : shortestRoutes) {
-			System.out.println(r +" | " + bruteForce.getTotaleAfstand(r));
-		}
-		
-//		shortestRoutes.stream().forEach(p -> System.out.println(p +" | " + bruteForce.getTotaleAfstand(p)));
-	}
-	public void printHeading(String headingColumn1, String remainingHeadingColumns) {
-		int productNaamLengte = 0; // productnaamlengte = 0
-		for (int i = 0; i < initialRoute.size(); i++) { // de initialRoute wordt doorlopen
-			productNaamLengte += initialRoute.get(i).getNaam().length(); // productnaamlengte krijgt de lengte van de naam van het item i mee
-		}
-		int lijstLengte = productNaamLengte + initialRoute.size()*2; // lijstlengte productnaamlengte + het aantal items van initialRoute keer twee
-		int gedeeltelijkeLengte = (lijstLengte - headingColumn1.length())/2; // gedeeltelijke lengte is de lijstlengte - de lengte van de headingcolumn en dat gedeeld door twee
-		for (int i = 0; i < gedeeltelijkeLengte; i++) {
-			System.out.print(" ");
-		}
-		System.out.print(headingColumn1);
-		for (int i = 0; i < gedeeltelijkeLengte; i++) {
-			System.out.print(" ");
-		}
-		if ((lijstLengte % 2) == 0) {
-			System.out.println(" ");
-		}
-		productNaamLengte += remainingHeadingColumns.length() + 3;
-		for (int i = 0; i < productNaamLengte + initialRoute.size()*2; i++) {
-			System.out.print("-");
-		}
-		System.out.println("");
-	}
+
 }

@@ -14,17 +14,17 @@ public class BruteForce {
 			Collections.swap(currentRoute.getOrder(), z, indexOfY);
 		});
 		if (z == currentRoute.getOrder().size() - 1) {
-			if (Driver.VERBOSE_FLAG) { 
-				System.out.print(currentRoute + " |      " + getTotaleAfstand(currentRoute));
-			}
+//			if (Driver.VERBOSE_FLAG) { 
+//				System.out.print(currentRoute + " |      " + getTotaleAfstand(currentRoute));
+//			}
 			if ((int)berekenTotaleAfstand(currentRoute) <= (int)berekenTotaleAfstand(shortestRoute)) {
 				shortestRoute.getOrder().clear();
 				shortestRoute.getOrder().addAll(currentRoute.getOrder());
 				voegToeAanKortsteRoutes(new Route(shortestRoute));
 			}
-			if (Driver.VERBOSE_FLAG) {
-				System.out.println("      |    " + getTotaleAfstand(shortestRoute) + "     | " + permutationNumb++);
-			}
+//			if (Driver.VERBOSE_FLAG) {
+//				System.out.println("      |    " + getTotaleAfstand(shortestRoute) + "     | " + permutationNumb++);
+//			}
 		}
 		return shortestRoutes;
 	}

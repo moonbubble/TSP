@@ -43,7 +43,7 @@ public class NearestNeighbour implements Functies {
 		return stappen;
 	}
 
-	public void algoritme() {
+	public ArrayList<Product> algoritme() {
 		printOrder();
 		goeie = order.get(0);
 		while (order.size() > 0) {
@@ -62,6 +62,6 @@ public class NearestNeighbour implements Functies {
 				}
 			}
 		}
-		printRoute();
+		return route;
 	}
 }

@@ -3,6 +3,7 @@ package tspScherm;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Enumeration;
 
 public class TspScherm extends JFrame implements ActionListener
 {
@@ -24,12 +25,14 @@ public class TspScherm extends JFrame implements ActionListener
 	private JLabel jlOutputText;
 	private String OutputText;
 	private JPanel jpAlgorithms;    
+	private ButtonGroup radioButtons;
     private JRadioButton JRBneighbour;
     private JRadioButton JRBrandom;
     private JRadioButton JRBexchange;
     private JRadioButton JRBannealing;
     
-    private Order order;
+    private Order order = new Order();   
+    private Timer timer;
     
     public TspScherm()
     {
@@ -40,6 +43,9 @@ public class TspScherm extends JFrame implements ActionListener
         
         jpGraphic = new TspGraphic();
         add(jpGraphic);
+        jpGraphic.drawGrid = true;
+        jpGraphic.drawOrder = false;
+        jpGraphic.drawLines = false;
         
         jpStatistics = new JPanel();
         jpStatistics.setPreferredSize(new Dimension(250,455));
@@ -127,18 +133,18 @@ public class TspScherm extends JFrame implements ActionListener
         jpAlgorithms.setLayout(null);
         add(jpAlgorithms);
         
-	        JRBneighbour = new JRadioButton("Nearest neighbour");
-	        JRBneighbour.setBounds(0, 5, 200, 40);
-	        JRBneighbour.setFont(new Font("Roboto", Font.BOLD, 15));
-	        JRBneighbour.addActionListener(this);
-	        JRBneighbour.setSelected(true);
-	        jpAlgorithms.add(JRBneighbour);
-	        
 	        JRBrandom = new JRadioButton("Random path");
-	        JRBrandom.setBounds(0, 45, 200, 40);
+	        JRBrandom.setBounds(0, 5, 200, 40);
 	        JRBrandom.setFont(new Font("Roboto", Font.BOLD, 15));
 	        JRBrandom.addActionListener(this);
+	        JRBrandom.setSelected(true);
 	        jpAlgorithms.add(JRBrandom);
+        
+	        JRBneighbour = new JRadioButton("Nearest neighbour");
+	        JRBneighbour.setBounds(0, 45, 200, 40);
+	        JRBneighbour.setFont(new Font("Roboto", Font.BOLD, 15));
+	        JRBneighbour.addActionListener(this);
+	        jpAlgorithms.add(JRBneighbour);
 	        
 	        JRBexchange = new JRadioButton("Opt-exchange");
 	        JRBexchange.setBounds(0, 85, 200, 40);
@@ -152,9 +158,9 @@ public class TspScherm extends JFrame implements ActionListener
 	        JRBannealing.addActionListener(this);
 	        jpAlgorithms.add(JRBannealing);
         
-        ButtonGroup radioButtons = new ButtonGroup();
-        radioButtons.add(JRBneighbour);
+        radioButtons = new ButtonGroup();
         radioButtons.add(JRBrandom);
+        radioButtons.add(JRBneighbour);
         radioButtons.add(JRBexchange);
         radioButtons.add(JRBannealing);
                 
@@ -162,6 +168,19 @@ public class TspScherm extends JFrame implements ActionListener
         this.setLocationRelativeTo(null);
         setVisible(true);
         
+    }
+    
+    private String getSelectedRadioButton(ButtonGroup bg)
+    {
+    	for (Enumeration<AbstractButton> buttons = bg.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+
+        return null;
     }
     
     @Override
@@ -181,8 +200,64 @@ public class TspScherm extends JFrame implements ActionListener
     		TspOrder.setVisible(true);
     		TspOrder.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
     		
-    		this.order = TspOrder.order;
-    		jpGraphic.paintPoints(this.order);
+    		order = TspOrder.getOrder();
+    		jpGraphic.setOrder(order);
+    		jpGraphic.drawOrder = true;
+    		jpGraphic.drawLines = false;
+    		repaint();
+    	}
+    	else if(e.getSource().equals(jbStart))
+    	{
+    		order.resetOrderList();
+    		if(getSelectedRadioButton(radioButtons) == "Random path")
+    		{
+    			RandomPath algoritme = new RandomPath(order.getOrderList());
+    			order.setOrderList(algoritme.algoritme());
+    		}
+    		else if(getSelectedRadioButton(radioButtons) == "Nearest neighbour")
+    		{
+    			
+    			NearestNeighbour algoritme = new NearestNeighbour(order.getOrderList());
+    			order.setOrderList(algoritme.algoritme());
+    			
+    		}
+    		else if(getSelectedRadioButton(radioButtons) == "Opt-exchange")
+    		{
+    			
+    		}
+    		else if(getSelectedRadioButton(radioButtons) == "Simulated annealing")
+    		{
+    			
+    		}
+    		
+    		order.getOrderList().get(0).Visited();
+    		jpGraphic.setOrder(order);
+    		jpGraphic.drawLines = true;
+    		jpGraphic.i = 1;
+    		repaint();
+    		
+    		ActionListener actionListener = new ActionListener()
+    		{
+    			int i = 1;
+    			
+    			@Override
+                public void actionPerformed(ActionEvent actionEvent)
+    			{
+    				order.getOrderList().get(i).Visited();
+    				jpGraphic.setOrder(order);
+    				repaint();
+    				i++;
+                    if(i == order.getOrderList().size()){timer.stop();}
+                    
+                }
+            };
+            timer = new Timer(TspInstellingen.snelheid, actionListener);
+            timer.start();	
+    	}
+    	else if(e.getSource().equals(jbReset))
+    	{
+    		jpGraphic.resetGraphic();
+    		this.order = null;
     	}
     }
 }

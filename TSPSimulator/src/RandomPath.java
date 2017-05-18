@@ -77,7 +77,8 @@ public class RandomPath implements Functies {
 
 	public void algoritme() {
 		while (order.size() > 0) {
-			for (int i = 0; i < order.size(); i++) {
+			for (int i = 0; i < order.size(); i++)
+			{
 				voegProductToeAanRoute(order.get(0));
 				order.remove(order.get(0));
 			}

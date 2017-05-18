@@ -6,6 +6,7 @@ public class Product {
 	private String naam;
 	private int gewicht;
 	private int artikelnr;
+	private boolean visited;
 	
 	public Product(int artikelnr, int x, int y, int gewicht, String naam) {
 		this.x = x;
@@ -13,7 +14,18 @@ public class Product {
 		this.naam = naam;
 		this.gewicht = gewicht;
 		this.artikelnr = artikelnr;
+		this.visited = false;
 		
+	}
+	
+	public void Visited()
+	{
+		this.visited = true;
+	}
+	
+	public void resetVisited()
+	{
+		this.visited = false;
 	}
 	
 	public String getLocatie() {
@@ -38,5 +50,16 @@ public class Product {
 	
 	public int getArtikelnr() {
 		return artikelnr;
+	}
+	
+	public boolean getVisited()
+	{
+		return visited;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return this.naam;
 	}
 }

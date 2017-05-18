@@ -6,7 +6,7 @@ public class Order
 {
 	private int ordernr;
 	private String datum;
-	private ArrayList<Product> order = new ArrayList<>();
+	private ArrayList<Product> orderList = new ArrayList<>();
 	private Klant klant;
 	
 	public Order()
@@ -23,19 +23,27 @@ public class Order
 		this.klant = klant;
 	}
 	
+	public void resetOrderList()
+	{
+		for(int i = 0; i < orderList.size();i++)
+		{
+			orderList.get(i).resetVisited();
+		}
+	}
+	
 	public void voegProductToe(Product p)
 	{
-		order.add(p);
+		orderList.add(p);
 	}
 	
-	public void setOrder(ArrayList<Product> o)
+	public void setOrderList(ArrayList<Product> o)
 	{
-		this.order = o;
+		this.orderList = o;
 	}
 	
-	public ArrayList<Product> getOrder()
+	public ArrayList<Product> getOrderList()
 	{
-		return order;
+		return orderList;
 	}
 	
 	public int getOrdernr()

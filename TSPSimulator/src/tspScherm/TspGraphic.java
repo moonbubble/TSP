@@ -6,6 +6,12 @@ import java.awt.*;
 public class TspGraphic extends JPanel
 {
 	private static final long serialVersionUID = 1L;
+	private Order order = new Order();
+	public boolean drawGrid = false;
+	public boolean drawOrder = false;
+	public boolean drawLines = false;
+	
+	public int i = 1;
 	
 	public TspGraphic()
 	{
@@ -14,27 +20,21 @@ public class TspGraphic extends JPanel
 		setOpaque(false);
 	}
 	
-    public void paintPoints(Order o)
-    {
-    	Graphics g = this.getGraphics();
-    	Graphics2D gg = (Graphics2D) g;
-    	gg.drawOval(100, 100, 100, 100);
-    	/*
-    	for(Product p : o.getOrder())
-    	{
-    		int x = 50 + (p.getX() * 130);
-    		int y = 15 + (p.getY() * 85);
-    		System.out.println("(" + x + "," + y + ")");
-    		g.setColor(Color.BLUE);
-    		g.drawOval(x, y, 50, 50);
-    	}*/
-    	this.repaint();
-    }
-	
-	public void paintComponent(Graphics g)
+	public void setOrder(Order o)
 	{
-		super.paintComponents(g);
-		this.setBackground(Color.WHITE);
+		this.order = o;
+	}
+	
+	public void resetGraphic()
+	{
+		i = 1;
+		drawOrder = false;
+		drawLines = false;
+		repaint();
+	}
+	
+	private void paintGrid(Graphics g)
+	{
 		g.setColor(Color.gray);
 		g.drawLine(50, 15, 50, 440);
 		g.drawLine(700, 15, 700, 440);
@@ -50,5 +50,56 @@ public class TspGraphic extends JPanel
 		g.drawLine(50, 185, 700, 185);
 		g.drawLine(50, 270, 700, 270);
 		g.drawLine(50, 355, 700, 355);
+	}
+	
+	private void paintOrder(Graphics g)
+	{
+		for(Product p : order.getOrderList())
+    	{
+    		int x = 740 - (p.getX() * 130);
+    		int y = 455 - (p.getY() * 85);
+    		
+    		if(p.getVisited())
+    		{
+    			g.setColor(Color.green);
+    		}
+    		else
+    		{
+    			g.setColor(Color.blue);
+    		}
+    		
+    		g.fillOval(x, y, 50, 50);
+    	}
+	}
+	
+	private void paintLines(Graphics g)
+	{		
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(Color.black);
+		g2.setStroke(new BasicStroke(5));
+		
+		for(int o = 1; o < i; o++)
+		{
+			int x1 = 740 - (order.getOrderList().get(o).getX() * 130) + 25;
+			int y1 = 455 - (order.getOrderList().get(o).getY() * 85) + 25;
+			
+			int x2 = 740 - (order.getOrderList().get(o - 1).getX() * 130) + 25;
+			int y2 = 455 - (order.getOrderList().get(o - 1).getY() * 85) + 25;
+			
+			g2.drawLine(x1, y1, x2, y2);
+			
+		}
+		i++;
+	}
+	
+    @Override
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponents(g);
+		this.setBackground(Color.WHITE);
+		
+		if(drawGrid){paintGrid(g);}
+		if(drawOrder){paintOrder(g);}
+		if(drawLines){paintLines(g);}		
 	}
 }

@@ -59,7 +59,7 @@ public class XML
 									Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][4]
 									));
 						}
-						order.setOrder(orderList);
+						order.setOrderList(orderList);
 					}
 			 }			 
 		}

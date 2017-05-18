@@ -17,15 +17,13 @@ public class TspOrder extends JDialog implements ActionListener
 	
 	final JFileChooser fc = new JFileChooser();
 	
-	public static int snelheid = 0;
-	public static int aantalSimulaties = 1;
-	public Order order;
+	private Order order = new Order();
 	
 	public TspOrder(JFrame frame)
     {
 		super(frame, true);
         setTitle("TSP instellingen");
-        this.setPreferredSize(new Dimension(700, 500));        
+        this.setPreferredSize(new Dimension(700, 600));        
         setLayout(null);
         
         jbUpload = new JButton("Upload XML");
@@ -45,31 +43,36 @@ public class TspOrder extends JDialog implements ActionListener
         add(jbRandom);
         
         jpTable = new JPanel();
-        jpTable.setBounds(20,80,640,300);
+        jpTable.setBounds(20,70,640,425);
         jpTable.setLayout(new BorderLayout());
         add(jpTable);
         
         jbOpslaan = new JButton("Opslaan");
-        jbOpslaan.setBounds(560, 400, 100, 40);
+        jbOpslaan.setBounds(560, 500, 100, 40);
         jbOpslaan.addActionListener(this);
         add(jbOpslaan);
         
         pack();        
     }
 	
+	public Order getOrder()
+	{
+		return order;
+	}
+	
 	private void makeTable(Order o)
 	{
 		String[] columnNames = {"Artikelnr", "X", "Y", "Gewicht", "Naam"};
 				
-		String orderData[][] = new String[o.getOrder().size()][5];
+		String orderData[][] = new String[o.getOrderList().size()][5];
 		
-		for(int i = 0; i < o.getOrder().size(); i++)
+		for(int i = 0; i < o.getOrderList().size(); i++)
 		{
-			orderData[i][0] = "" + o.getOrder().get(i).getArtikelnr();
-			orderData[i][1] = "" + o.getOrder().get(i).getX();
-			orderData[i][2] = "" + o.getOrder().get(i).getY();
-			orderData[i][3] = "" + o.getOrder().get(i).getGewicht();
-			orderData[i][4] = o.getOrder().get(i).getNaam();
+			orderData[i][0] = "" + o.getOrderList().get(i).getArtikelnr();
+			orderData[i][1] = "" + o.getOrderList().get(i).getX();
+			orderData[i][2] = "" + o.getOrderList().get(i).getY();
+			orderData[i][3] = "" + o.getOrderList().get(i).getGewicht();
+			orderData[i][4] = o.getOrderList().get(i).getNaam();
 		}
 		
 		NonEditableModel tableModel = new NonEditableModel(orderData, columnNames);
@@ -102,12 +105,12 @@ public class TspOrder extends JDialog implements ActionListener
 				Main.database[artikelnr][4]
 				));
 		
-		while(randomOrder.getOrder().size() < a)
+		while(randomOrder.getOrderList().size() < a)
 		{
 			artikelnr = (int)(Math.random() * 25);
 			boolean exists = false;
 			
-			for(Product product :randomOrder.getOrder())
+			for(Product product :randomOrder.getOrderList())
 			{
 				if(artikelnr + 1 == product.getArtikelnr())
 				{
@@ -138,8 +141,12 @@ public class TspOrder extends JDialog implements ActionListener
 		else if(e.getSource().equals(jbRandom))
 		{
 			int aantalPunten = Integer.parseInt(jtRandom.getText());
-			order = makeRandomOrder(aantalPunten);
-			makeTable(order);
+			if(aantalPunten <= 25)
+			{
+				order = makeRandomOrder(aantalPunten);
+				
+				makeTable(order);
+			}
 		}
 		else if (e.getSource() == jbUpload) {
 	        int returnVal = fc.showOpenDialog(this);

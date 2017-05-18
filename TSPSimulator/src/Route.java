@@ -3,6 +3,7 @@ import java.util.Arrays;
 
 public class Route {
 	private ArrayList<Product> order = new ArrayList<Product>();
+	
 	public Route(ArrayList<Product> initialRoute) {
 		setOrder(initialRoute);
 	}

@@ -5,6 +5,20 @@ public class BruteForce {
 	static int permutationNumb = 1;
 	private int returnValue;
 	ArrayList<Route> shortestRoutes = new ArrayList<Route>();
+	private static ArrayList<Product> initialRoute;
+	
+	public BruteForce() {
+	}
+	
+	public BruteForce(Order order) {
+		BruteForce.initialRoute = order.getOrder();
+	}
+
+	public void algoritme() {
+		BruteForce bruteForce = new BruteForce();
+		Route currentRoute = new Route(initialRoute);
+		ontvangRoute(bruteForce, bruteForce.permuteProducts(0, currentRoute, new Route(currentRoute)));
+	}
 	
 	public ArrayList<Route> permuteProducts(int z, Route currentRoute, Route shortestRoute) {
 		currentRoute.getOrder().stream().filter(y -> currentRoute.getOrder().indexOf(y) >= z).forEach(y -> {
@@ -52,5 +66,18 @@ public class BruteForce {
 		shortestRoutes.removeIf(x -> berekenTotaleAfstand(x) > berekenTotaleAfstand(route)); //als de totale afstand van x groter is dan de totale afstand van de route wordt  
 			//eerst stond er removeIf(x -> (int)berekenTotaleAfstand(x) > (int)berekenTotaleAfstand(route))
 		shortestRoutes.add(route);
+	}
+	
+	public ArrayList<Product> ontvangRoute(BruteForce bruteForce, ArrayList<Route> shortestRoutes) {
+		int index = 0;
+		ArrayList<Product> route = new ArrayList<Product>();
+		for (Route r : shortestRoutes) {
+			if(index == 0) {
+				route = r.getOrder();
+			}
+//			System.out.println((index++) + ": " + r);
+		}
+//		System.out.println(route + " | " + bruteForce.getTotaleAfstand(shortestRoutes.get(0)));
+		return route;
 	}
 }

@@ -13,11 +13,11 @@ public class AntColonyOptimization {
 		initialiseerFeromoonLevels();
 	}
 	
-	public AtomicDouble[][] getferomoonLevelsMatrix() {
+	public AtomicDouble[][] getFeromoonLevelsMatrix() {
 		return feromoonLevelsMatrix;
 	}
 
-	public double[][] getafstandsMatrix() {
+	public double[][] getAfstandsMatrix() {
 		return afstandsMatrix;
 	}
 	private void initialiseerAfstanden() throws IOException {

@@ -36,22 +36,6 @@ public class Driver {
 				driver.actieveMieren--;
 			}
 		}
-//		dit is volgens mij hetzelfde als wat hierboven staat
-//		IntStream.range(5, AANTAL_MIEREN).forEach(x -> {
-//			System.out.println("\nDriver.main: eCS.submit(new Mier())"); //to indicate that I submitted a new Mier
-//			eCS.submit(new Mier());
-//			driver.actieveMieren++;
-//			System.out.println(x);
-//			while(driver.actieveMieren > 0) {
-//				System.out.println("Driver.main: eCS.take()");
-//				try {
-//					eCS.take(); //end overrided method in Mier.java
-//				} catch (Exception e) {
-//					e.printStackTrace();
-// 				}
-//				driver.actieveMieren--;
-//			}
-//		});
 		System.out.println("\n> Driver.main: eindig de loop...");
 		eS.shutdownNow();
 	}

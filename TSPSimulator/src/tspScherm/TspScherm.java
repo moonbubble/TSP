@@ -3,6 +3,7 @@ package tspScherm;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Collections;
 import java.util.Enumeration;
 
 public class TspScherm extends JFrame implements ActionListener
@@ -146,7 +147,7 @@ public class TspScherm extends JFrame implements ActionListener
 	        JRBneighbour.addActionListener(this);
 	        jpAlgorithms.add(JRBneighbour);
 	        
-	        JRBexchange = new JRadioButton("Opt-exchange");
+	        JRBexchange = new JRadioButton("Brute force");
 	        JRBexchange.setBounds(0, 85, 200, 40);
 	        JRBexchange.setFont(new Font("Roboto", Font.BOLD, 15));
 	        JRBexchange.addActionListener(this);
@@ -209,6 +210,8 @@ public class TspScherm extends JFrame implements ActionListener
     	else if(e.getSource().equals(jbStart))
     	{
     		order.resetOrderList();
+    		Collections.sort(order.getOrderList(), new MyComparator());
+    		System.out.println(order.getOrdernr());
     		if(getSelectedRadioButton(radioButtons) == "Random path")
     		{
     			RandomPath algoritme = new RandomPath(order.getOrderList());
@@ -221,15 +224,15 @@ public class TspScherm extends JFrame implements ActionListener
     			order.setOrderList(algoritme.algoritme());
     			
     		}
-    		else if(getSelectedRadioButton(radioButtons) == "Opt-exchange")
+    		else if(getSelectedRadioButton(radioButtons) == "Brute force")
     		{
-    			
+    			BruteForce algoritme = new BruteForce(order.getOrderList());
+    			order.setOrderList(algoritme.algoritme());
     		}
     		else if(getSelectedRadioButton(radioButtons) == "Simulated annealing")
     		{
     			
     		}
-    		
     		order.getOrderList().get(0).Visited();
     		jpGraphic.setOrder(order);
     		jpGraphic.drawLines = true;
@@ -247,7 +250,7 @@ public class TspScherm extends JFrame implements ActionListener
     				jpGraphic.setOrder(order);
     				repaint();
     				i++;
-                    if(i == order.getOrderList().size()){timer.stop();}
+                    if(i >= order.getOrderList().size()){timer.stop();}
                     
                 }
             };
@@ -257,6 +260,7 @@ public class TspScherm extends JFrame implements ActionListener
     	else if(e.getSource().equals(jbReset))
     	{
     		jpGraphic.resetGraphic();
+    		timer.stop();
     		this.order = null;
     	}
     }

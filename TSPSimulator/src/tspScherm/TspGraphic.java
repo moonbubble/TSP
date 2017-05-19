@@ -86,8 +86,7 @@ public class TspGraphic extends JPanel
 			int x2 = 740 - (order.getOrderList().get(o - 1).getX() * 130) + 25;
 			int y2 = 455 - (order.getOrderList().get(o - 1).getY() * 85) + 25;
 			
-			g2.drawLine(x1, y1, x2, y2);
-			
+			g2.drawLine(x1, y1, x2, y2);			
 		}
 		i++;
 	}

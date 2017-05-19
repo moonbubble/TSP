@@ -45,19 +45,19 @@
 	<Product artikelnr="8"> <!-- Pen -->
 		<X>3</X>
 		<Y>2</Y>
-		<Gewicht>3</Gewicht>
+		<Gewicht>2</Gewicht>
 		<Naam>Pen</Naam>
 	</Product>
 	<Product artikelnr="9"> <!-- Potlood -->
 		<X>4</X>
 		<Y>2</Y>
-		<Gewicht>4</Gewicht>
+		<Gewicht>2</Gewicht>
 		<Naam>Potlood</Naam>
 	</Product>
 	<Product artikelnr="10"> <!-- Stift -->
 		<X>5</X>
 		<Y>2</Y>
-		<Gewicht>5</Gewicht>
+		<Gewicht>2</Gewicht>
 		<Naam>Stift</Naam>
 	</Product>
 	<Product artikelnr="11"> <!-- Schrift -->

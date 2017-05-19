@@ -60,6 +60,23 @@ public class Product {
 	@Override
 	public String toString()
 	{
-		return this.naam;
+		return "" + this.artikelnr;
+	}
+	
+	public int meetAfstand(Product product) {
+		int deltaLongitude = 0;
+		int deltaLatitude = 0;
+		if (product.getY() > this.getY()) {
+			deltaLongitude = (product.getY() - this.getY());
+		} else {
+			deltaLongitude = (this.getY() - product.getY());
+		}
+		
+		if (product.getX() > this.getX()) {
+			deltaLatitude = (product.getX() - this.getX());
+		} else {
+			deltaLatitude = (this.getX() - product.getX());
+		}
+		return deltaLongitude + deltaLatitude;
 	}
 }

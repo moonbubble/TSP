@@ -12,7 +12,7 @@ public class Mier implements Callable<Mier> {
 	private int mierNumb;
 	private Route route = null;
 	static int ongeldigeProductIndex = -1;
-	static int aantalProducten = Driver.initialRoute.size();
+	static int aantalProducten = ACODriver.initialRoute.size();
 
 	public Route getRoute() {
 		return route;
@@ -28,12 +28,12 @@ public class Mier implements Callable<Mier> {
 //		System.out.println("Mier.call() aangeroepen");
 		int eersteProductIndex = ThreadLocalRandom.current().nextInt(aantalProducten);
 		ArrayList<Product> routeProducten = new ArrayList<Product>(aantalProducten);
-		HashMap<String, Boolean> bezochteProducten = new HashMap<String, Boolean>(aantalProducten);
+		HashMap<Product, Boolean> bezochteProducten = new HashMap<Product, Boolean>(aantalProducten);
 		for (int i = 0; i < aantalProducten; i++) {
-			bezochteProducten.put(Driver.initialRoute.get(i).getNaam(), false);
+			bezochteProducten.put(ACODriver.initialRoute.get(i), false);
 		}
 		int aantalBezochteProducten = 0;
-		bezochteProducten.put(Driver.initialRoute.get(eersteProductIndex).getNaam(), true);
+		bezochteProducten.put(ACODriver.initialRoute.get(eersteProductIndex), true);
 		int routeAfstand = 0;
 		int x = eersteProductIndex;
 		int y = ongeldigeProductIndex;
@@ -41,10 +41,10 @@ public class Mier implements Callable<Mier> {
 			y = getY(x, bezochteProducten);
 		}
 		while (y != ongeldigeProductIndex) {
-			routeProducten.add(aantalBezochteProducten++, Driver.initialRoute.get(x));
+			routeProducten.add(aantalBezochteProducten++, ACODriver.initialRoute.get(x));
 			routeAfstand += aco.getAfstandsMatrix()[x][y];
 			aanpassenFeromoonLevel(x, y, routeAfstand);
-			bezochteProducten.put(Driver.initialRoute.get(y).getNaam(), true);
+			bezochteProducten.put(ACODriver.initialRoute.get(y), true);
 			x = y;
 			if (aantalBezochteProducten != aantalProducten) { // als alle producten nog niet bezocht zijn
 				y = getY(x, bezochteProducten); // y wordt de index van het volgende product
@@ -53,7 +53,7 @@ public class Mier implements Callable<Mier> {
 			}
 		}
 		routeAfstand += aco.getAfstandsMatrix()[x][eersteProductIndex]; //uiteindelijk wordt de afstand van het laattse product toegevoegd aan de routeAfstand
-		routeProducten.add(aantalBezochteProducten, Driver.initialRoute.get(x)); 
+		routeProducten.add(aantalBezochteProducten, ACODriver.initialRoute.get(x)); 
 		route = new Route(routeProducten, routeAfstand);
 		return this;
 	}
@@ -69,7 +69,7 @@ public class Mier implements Callable<Mier> {
 			}
 		}
 	}
-	private int getY(int x, HashMap<String, Boolean> bezochteProducten) { // dit returnt de index van het volgende product dat moet worden bezocht
+	private int getY(int x, HashMap<Product, Boolean> bezochteProducten) { // dit returnt de index van het volgende product dat moet worden bezocht
 		int returnY = ongeldigeProductIndex;
 		double random = ThreadLocalRandom.current().nextDouble(); 
 		ArrayList<Double> transitionProbabilities = getTransitionProbabilities(x, bezochteProducten);
@@ -83,7 +83,7 @@ public class Mier implements Callable<Mier> {
 		}
 		return returnY;
 	}
-	private ArrayList<Double> getTransitionProbabilities(int x, HashMap<String, Boolean> bezochteProducten) {
+	private ArrayList<Double> getTransitionProbabilities(int x, HashMap<Product, Boolean> bezochteProducten) {
 		ArrayList<Double> transitionProbabilities = new ArrayList<Double>(aantalProducten);
 		for (int k = 0; k < aantalProducten; k++) {
 			transitionProbabilities.add(0.0);
@@ -94,10 +94,10 @@ public class Mier implements Callable<Mier> {
 		}
 		return transitionProbabilities;
 	}
-	private double getTPDenominator(ArrayList<Double> transitionProbabilities, int x, HashMap<String, Boolean> bezochteProducten) { //noemer
+	private double getTPDenominator(ArrayList<Double> transitionProbabilities, int x, HashMap<Product, Boolean> bezochteProducten) { //noemer
 		double denominator = 0.0;
 		for (int i = 0; i < aantalProducten; i++) {
-			if (!bezochteProducten.get(Driver.initialRoute.get(i).getNaam())) {
+			if (!bezochteProducten.get(ACODriver.initialRoute.get(i))) {
 				if(x == i) {
 					transitionProbabilities.set(i, 0.0); // je mag niet bewegen van en naar dezelfde producten
 				} else {

@@ -11,10 +11,10 @@ public class TSPTest {
 		Product q = new Product(2, 5);
 		Product t = new Product(5, 4);
 		Product u = new Product(3, 2);
-		Product a1 = new Product("a", 2, 5);
-		Product a2 = new Product("b", 4, 3);
-		Product a3 = new Product("c", 2, 2);
-		Product a4 = new Product("d", 5, 1);
+		Product a1 = new Product( 2, 5);
+		Product a2 = new Product( 4, 3);
+		Product a3 = new Product( 2, 2);
+		Product a4 = new Product( 5, 1);
 		Product a5 = new Product(4, 2);
 		Product a6 = new Product(2, 1);
 		
@@ -36,6 +36,10 @@ public class TSPTest {
 		konijn.voegProductToe(a4);
 		konijn.voegProductToe(a5); 
 		konijn.voegProductToe(a6);
+		
+		//aco zooi
+		ACODriver driver = new ACODriver(konijn);
+		driver.algoritme();
 		
 		//brute force zooi
 		BruteForce bf = new BruteForce(konijn);

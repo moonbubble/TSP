@@ -1,14 +1,13 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class AntColonyOptimization {
 	private AtomicDouble[][] feromoonLevelsMatrix = null;
 	private double[][] afstandsMatrix = null;
-	private ArrayList<Product> order = Driver.initialRoute;
-	private int orderGrootte = Driver.initialRoute.size();
+	private ArrayList<Product> order = ACODriver.initialRoute;
+	private int orderGrootte = ACODriver.initialRoute.size();
 	
-	public AntColonyOptimization() throws IOException {
+	public AntColonyOptimization(){
 		initialiseerAfstanden();
 		initialiseerFeromoonLevels();
 	}
@@ -20,7 +19,7 @@ public class AntColonyOptimization {
 	public double[][] getAfstandsMatrix() {
 		return afstandsMatrix;
 	}
-	private void initialiseerAfstanden() throws IOException {
+	private void initialiseerAfstanden(){
 		afstandsMatrix = new double[orderGrootte][orderGrootte];
 		for (int i = 0; i < orderGrootte; i++) {
 			Product productY = order.get(i);

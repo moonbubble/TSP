@@ -6,6 +6,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Mier implements Callable<Mier> { 
 	public static final double pL = 0.2; //parameter die gebruikt wordt om level van feromoonverdamping te veranderen (waarde is tussen 0 en 1) 
 	public static final double pH = 0.0005; //parameter die gebruikt wordt om de hoeveelheid feromoon aan te passen (waarde is tussen 0 en 1)
+	public static final double ALPHA = 0.01; // parameter die gebruikt wordt om te controleren hoe belangrijk het feromoon spoor is (waarde >= 0
+	public static final double BETA = 9.5; // parameter die gebruikt wordt om te contoleren hoe belangrijk de afstand is tussen een beginpunt en eindpunt (waarde >= 1)
 	private AntColonyOptimization aco;
 	private int mierNumb;
 	private Route route = null;
@@ -23,7 +25,7 @@ public class Mier implements Callable<Mier> {
 
 	@Override
 	public Mier call() throws Exception {
-		System.out.println("Mier.call() aangeroepen");
+//		System.out.println("Mier.call() aangeroepen");
 		int eersteProductIndex = ThreadLocalRandom.current().nextInt(aantalProducten);
 		ArrayList<Product> routeProducten = new ArrayList<Product>(aantalProducten);
 		HashMap<String, Boolean> bezochteProducten = new HashMap<String, Boolean>(aantalProducten);
@@ -51,7 +53,7 @@ public class Mier implements Callable<Mier> {
 			}
 		}
 		routeAfstand += aco.getAfstandsMatrix()[x][eersteProductIndex]; //uiteindelijk wordt de afstand van het laattse product toegevoegd aan de routeAfstand
-		routeProducten.add(aantalProducten, Driver.initialRoute.get(x)); 
+		routeProducten.add(aantalBezochteProducten, Driver.initialRoute.get(x)); 
 		route = new Route(routeProducten, routeAfstand);
 		return this;
 	}
@@ -69,8 +71,53 @@ public class Mier implements Callable<Mier> {
 	}
 	private int getY(int x, HashMap<String, Boolean> bezochteProducten) { // dit returnt de index van het volgende product dat moet worden bezocht
 		int returnY = ongeldigeProductIndex;
+		double random = ThreadLocalRandom.current().nextDouble(); 
+		ArrayList<Double> transitionProbabilities = getTransitionProbabilities(x, bezochteProducten);
+		for (int i = 0; i < aantalProducten; i++) { // alle producten doorlopen
+			if (transitionProbabilities.get(i) > random) {
+				returnY = i;
+				break; 
+			} else {
+				random -= transitionProbabilities.get(i);
+			}
+		}
 		return returnY;
 	}
+	private ArrayList<Double> getTransitionProbabilities(int x, HashMap<String, Boolean> bezochteProducten) {
+		ArrayList<Double> transitionProbabilities = new ArrayList<Double>(aantalProducten);
+		for (int k = 0; k < aantalProducten; k++) {
+			transitionProbabilities.add(0.0);
+		}
+		double denominator = getTPDenominator(transitionProbabilities, x, bezochteProducten);
+		for (int h = 0; h < aantalProducten; h++) {
+			transitionProbabilities.set(h, transitionProbabilities.get(h)/denominator);
+		}
+		return transitionProbabilities;
+	}
+	private double getTPDenominator(ArrayList<Double> transitionProbabilities, int x, HashMap<String, Boolean> bezochteProducten) { //noemer
+		double denominator = 0.0;
+		for (int i = 0; i < aantalProducten; i++) {
+			if (!bezochteProducten.get(Driver.initialRoute.get(i).getNaam())) {
+				if(x == i) {
+					transitionProbabilities.set(i, 0.0); // je mag niet bewegen van en naar dezelfde producten
+				} else {
+					transitionProbabilities.set(i, getTPNumerator(x, i));
+				}
+				denominator += transitionProbabilities.get(i);
+			}
+		}
+		return denominator;
+	}
+	
+	private double getTPNumerator(int x, int y) { // teller
+		double numerator = 0.0;
+		double feromoonLevel = aco.getFeromoonLevelsMatrix()[x][y].doubleValue();
+		if (feromoonLevel != 0.0) {
+			numerator = Math.pow(feromoonLevel, ALPHA) * Math.pow(1/aco.getAfstandsMatrix()[x][y], BETA);
+		}
+		return numerator;
+	}
+
 	public int getMierNumb() {
 		return mierNumb;
 	}

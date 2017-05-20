@@ -14,10 +14,10 @@ public class BruteForce {
 		BruteForce.initialRoute = order.getOrder();
 	}
 
-	public void algoritme() {
+	public ArrayList<Product> algoritme() {
 		BruteForce bruteForce = new BruteForce();
 		Route currentRoute = new Route(initialRoute);
-		ontvangRoute(bruteForce, bruteForce.permuteProducts(0, currentRoute, new Route(currentRoute)));
+		return ontvangRoute(bruteForce, bruteForce.permuteProducts(0, currentRoute, new Route(currentRoute)));
 	}
 	
 	public ArrayList<Route> permuteProducts(int z, Route currentRoute, Route shortestRoute) {

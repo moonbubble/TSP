@@ -1,13 +1,11 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class AntColonyOptimization {
+public class ACO {
 	private AtomicDouble[][] feromoonLevelsMatrix = null;
 	private double[][] afstandsMatrix = null;
-	private ArrayList<Product> order = ACODriver.initialRoute;
-	private int orderGrootte = ACODriver.initialRoute.size();
 	
-	public AntColonyOptimization(){
+	public ACO(){
 		initialiseerAfstanden();
 		initialiseerFeromoonLevels();
 	}

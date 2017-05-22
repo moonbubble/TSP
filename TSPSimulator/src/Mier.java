@@ -8,7 +8,7 @@ public class Mier implements Callable<Mier> {
 	public static final double pH = 0.0005; //parameter die gebruikt wordt om de hoeveelheid feromoon aan te passen (waarde is tussen 0 en 1)
 	public static final double ALPHA = 0.01; // parameter die gebruikt wordt om te controleren hoe belangrijk het feromoon spoor is (waarde >= 0
 	public static final double BETA = 9.5; // parameter die gebruikt wordt om te contoleren hoe belangrijk de afstand is tussen een beginpunt en eindpunt (waarde >= 1)
-	private AntColonyOptimization aco;
+	private ACO aco;
 	private int mierNumb;
 	private Route route = null;
 	static int ongeldigeProductIndex = -1;
@@ -18,7 +18,7 @@ public class Mier implements Callable<Mier> {
 		return route;
 	}
 	
-	public Mier(AntColonyOptimization aco, int mierNumb) {
+	public Mier(ACO aco, int mierNumb) {
 		this.aco = aco;
 		this.mierNumb = mierNumb;
 	}

@@ -17,7 +17,7 @@ public class ACODriver {
 	}
 	
 	public ArrayList<Product> algoritme(){
-		AntColonyOptimization aco = new AntColonyOptimization();
+		ACO aco = new ACO();
 		for (int i = 1; i < AANTAL_MIEREN; i++) { 
 			eCS.submit(new Mier(aco, i));
 			actieveMieren++;

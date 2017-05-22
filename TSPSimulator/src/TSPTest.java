@@ -38,7 +38,7 @@ public class TSPTest {
 		konijn.voegProductToe(a6);
 		
 		//aco zooi
-		ACODriver driver = new ACODriver(konijn);
+		AntColonyOptimization driver = new AntColonyOptimization(konijn);
 		driver.algoritme();
 		
 		//brute force zooi

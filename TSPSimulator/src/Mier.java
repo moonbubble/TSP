@@ -8,32 +8,31 @@ public class Mier implements Callable<Mier> {
 	public static final double pH = 0.0005; //parameter die gebruikt wordt om de hoeveelheid feromoon aan te passen (waarde is tussen 0 en 1)
 	public static final double ALPHA = 0.01; // parameter die gebruikt wordt om te controleren hoe belangrijk het feromoon spoor is (waarde >= 0
 	public static final double BETA = 9.5; // parameter die gebruikt wordt om te contoleren hoe belangrijk de afstand is tussen een beginpunt en eindpunt (waarde >= 1)
-	private ACO aco;
+	private ACODriver aco;
 	private int mierNumb;
 	private Route route = null;
 	static int ongeldigeProductIndex = -1;
-	static int aantalProducten = ACODriver.initialRoute.size();
+	static int aantalProducten = AntColonyOptimization.initialRoute.size();
 
 	public Route getRoute() {
 		return route;
 	}
 	
-	public Mier(ACO aco, int mierNumb) {
+	public Mier(ACODriver aco, int mierNumb) {
 		this.aco = aco;
 		this.mierNumb = mierNumb;
 	}
 
 	@Override
 	public Mier call() throws Exception {
-//		System.out.println("Mier.call() aangeroepen");
 		int eersteProductIndex = ThreadLocalRandom.current().nextInt(aantalProducten);
 		ArrayList<Product> routeProducten = new ArrayList<Product>(aantalProducten);
 		HashMap<Product, Boolean> bezochteProducten = new HashMap<Product, Boolean>(aantalProducten);
 		for (int i = 0; i < aantalProducten; i++) {
-			bezochteProducten.put(ACODriver.initialRoute.get(i), false);
+			bezochteProducten.put(AntColonyOptimization.initialRoute.get(i), false);
 		}
 		int aantalBezochteProducten = 0;
-		bezochteProducten.put(ACODriver.initialRoute.get(eersteProductIndex), true);
+		bezochteProducten.put(AntColonyOptimization.initialRoute.get(eersteProductIndex), true);
 		int routeAfstand = 0;
 		int x = eersteProductIndex;
 		int y = ongeldigeProductIndex;
@@ -41,19 +40,18 @@ public class Mier implements Callable<Mier> {
 			y = getY(x, bezochteProducten);
 		}
 		while (y != ongeldigeProductIndex) {
-			routeProducten.add(aantalBezochteProducten++, ACODriver.initialRoute.get(x));
+			routeProducten.add(aantalBezochteProducten++, AntColonyOptimization.initialRoute.get(x));
 			routeAfstand += aco.getAfstandsMatrix()[x][y];
 			aanpassenFeromoonLevel(x, y, routeAfstand);
-			bezochteProducten.put(ACODriver.initialRoute.get(y), true);
+			bezochteProducten.put(AntColonyOptimization.initialRoute.get(y), true);
 			x = y;
-			if (aantalBezochteProducten != aantalProducten) { // als alle producten nog niet bezocht zijn
+			if (aantalBezochteProducten != aantalProducten) { 
 				y = getY(x, bezochteProducten); // y wordt de index van het volgende product
 			} else {
 				y = ongeldigeProductIndex; 
 			}
 		}
-		routeAfstand += aco.getAfstandsMatrix()[x][eersteProductIndex]; //uiteindelijk wordt de afstand van het laattse product toegevoegd aan de routeAfstand
-		routeProducten.add(aantalBezochteProducten, ACODriver.initialRoute.get(x)); 
+		routeProducten.add(aantalBezochteProducten, AntColonyOptimization.initialRoute.get(x)); 
 		route = new Route(routeProducten, routeAfstand);
 		return this;
 	}
@@ -73,7 +71,7 @@ public class Mier implements Callable<Mier> {
 		int returnY = ongeldigeProductIndex;
 		double random = ThreadLocalRandom.current().nextDouble(); 
 		ArrayList<Double> transitionProbabilities = getTransitionProbabilities(x, bezochteProducten);
-		for (int i = 0; i < aantalProducten; i++) { // alle producten doorlopen
+		for (int i = 0; i < aantalProducten; i++) { 
 			if (transitionProbabilities.get(i) > random) {
 				returnY = i;
 				break; 
@@ -94,10 +92,10 @@ public class Mier implements Callable<Mier> {
 		}
 		return transitionProbabilities;
 	}
-	private double getTPDenominator(ArrayList<Double> transitionProbabilities, int x, HashMap<Product, Boolean> bezochteProducten) { //noemer
+	private double getTPDenominator(ArrayList<Double> transitionProbabilities, int x, HashMap<Product, Boolean> bezochteProducten) { 
 		double denominator = 0.0;
 		for (int i = 0; i < aantalProducten; i++) {
-			if (!bezochteProducten.get(ACODriver.initialRoute.get(i))) {
+			if (!bezochteProducten.get(AntColonyOptimization.initialRoute.get(i))) {
 				if(x == i) {
 					transitionProbabilities.set(i, 0.0); // je mag niet bewegen van en naar dezelfde producten
 				} else {

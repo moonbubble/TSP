@@ -29,8 +29,8 @@ public class TspScherm extends JFrame implements ActionListener
 	private ButtonGroup radioButtons;
     private JRadioButton JRBneighbour;
     private JRadioButton JRBrandom;
-    private JRadioButton JRBexchange;
-    private JRadioButton JRBannealing;
+    private JRadioButton JRBbrute;
+    private JRadioButton JRBant;
     
     private Order order = new Order();   
     private Timer timer;
@@ -121,7 +121,7 @@ public class TspScherm extends JFrame implements ActionListener
 	        jlOutput.setFont(new Font("Roboto", Font.BOLD, 20));
 	        jpOutput.add(jlOutput);
 	        
-	        OutputText = "dit is een random test regel <br> Dit is nog een text regel";
+	        OutputText = "dit is een random test regel <br> Dit is nog een text regel <br> regel <br> regel <br> regel <br> regel <br> regel <br> regel <br> regel <br> regel <br> regel <br> regel <br> regel <br> regel <br> regel <br> regel";
 	        
 	        jlOutputText = new JLabel("<html>" + OutputText + "</html>", JLabel.LEFT);
 	        jlOutputText.setVerticalAlignment(JLabel.TOP);
@@ -147,23 +147,23 @@ public class TspScherm extends JFrame implements ActionListener
 	        JRBneighbour.addActionListener(this);
 	        jpAlgorithms.add(JRBneighbour);
 	        
-	        JRBexchange = new JRadioButton("Brute force");
-	        JRBexchange.setBounds(0, 85, 200, 40);
-	        JRBexchange.setFont(new Font("Roboto", Font.BOLD, 15));
-	        JRBexchange.addActionListener(this);
-	        jpAlgorithms.add(JRBexchange);
+	        JRBbrute = new JRadioButton("Brute force");
+	        JRBbrute.setBounds(0, 85, 200, 40);
+	        JRBbrute.setFont(new Font("Roboto", Font.BOLD, 15));
+	        JRBbrute.addActionListener(this);
+	        jpAlgorithms.add(JRBbrute);
 	        
-	        JRBannealing = new JRadioButton("Simulated annealing");
-	        JRBannealing.setBounds(0, 125, 200, 40);
-	        JRBannealing.setFont(new Font("Roboto", Font.BOLD, 15));
-	        JRBannealing.addActionListener(this);
-	        jpAlgorithms.add(JRBannealing);
+	        JRBant = new JRadioButton("Ant colony optimization");
+	        JRBant.setBounds(0, 125, 200, 40);
+	        JRBant.setFont(new Font("Roboto", Font.BOLD, 15));
+	        JRBant.addActionListener(this);
+	        jpAlgorithms.add(JRBant);
         
         radioButtons = new ButtonGroup();
         radioButtons.add(JRBrandom);
         radioButtons.add(JRBneighbour);
-        radioButtons.add(JRBexchange);
-        radioButtons.add(JRBannealing);
+        radioButtons.add(JRBbrute);
+        radioButtons.add(JRBant);
                 
         pack();
         this.setLocationRelativeTo(null);
@@ -219,19 +219,18 @@ public class TspScherm extends JFrame implements ActionListener
     		}
     		else if(getSelectedRadioButton(radioButtons) == "Nearest neighbour")
     		{
-    			
     			NearestNeighbour algoritme = new NearestNeighbour(order.getOrderList());
-    			order.setOrderList(algoritme.algoritme());
-    			
+    			order.setOrderList(algoritme.algoritme());	
     		}
     		else if(getSelectedRadioButton(radioButtons) == "Brute force")
     		{
     			BruteForce algoritme = new BruteForce(order.getOrderList());
     			order.setOrderList(algoritme.algoritme());
     		}
-    		else if(getSelectedRadioButton(radioButtons) == "Simulated annealing")
+    		else if(getSelectedRadioButton(radioButtons) == "Ant colony optimization")
     		{
-    			
+    			AntColonyOptimization algoritme = new AntColonyOptimization(order.getOrderList());
+    			order.setOrderList(algoritme.algoritme());
     		}
     		order.getOrderList().get(0).Visited();
     		jpGraphic.setOrder(order);

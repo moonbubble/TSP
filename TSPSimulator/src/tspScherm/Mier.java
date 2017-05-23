@@ -11,7 +11,6 @@ public class Mier implements Callable<Mier> {
 	public static final double ALPHA = 0.01; // parameter die gebruikt wordt om te controleren hoe belangrijk het feromoon spoor is (waarde >= 0
 	public static final double BETA = 9.5; // parameter die gebruikt wordt om te contoleren hoe belangrijk de afstand is tussen een beginpunt en eindpunt (waarde >= 1)
 	private ACODriver aco;
-	private int mierNumb;
 	private Route route = null;
 	static int ongeldigeProductIndex = -1;
 	static int aantalProducten = AntColonyOptimization.initialRoute.size();
@@ -20,13 +19,13 @@ public class Mier implements Callable<Mier> {
 		return route;
 	}
 	
-	public Mier(ACODriver aco, int mierNumb) {
+	public Mier(ACODriver aco) {
 		this.aco = aco;
-		this.mierNumb = mierNumb;
 	}
 
 	@Override
 	public Mier call() throws Exception {
+		System.out.println(aantalProducten);
 		int eersteProductIndex = ThreadLocalRandom.current().nextInt(aantalProducten);
 		ArrayList<Product> routeProducten = new ArrayList<Product>(aantalProducten);
 		HashMap<Product, Boolean> bezochteProducten = new HashMap<Product, Boolean>(aantalProducten);
@@ -118,8 +117,8 @@ public class Mier implements Callable<Mier> {
 		return numerator;
 	}
 
-	public int getMierNumb() {
-		return mierNumb;
-	}
+//	public int getMierNumb() {
+//		return mierNumb;
+//	}
 
 }

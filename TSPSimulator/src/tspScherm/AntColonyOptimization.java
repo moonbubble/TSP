@@ -9,7 +9,7 @@ public class AntColonyOptimization {
 	static final int AANTAL_MIEREN = 500;
 	static final double PROCESSING_CYCLE_PROBABILITY = 0.8;
 	static ExecutorService eS; // = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-	static ExecutorCompletionService<Mier> eCS; // = new ExecutorCompletionService<Mier>(eS);
+	static ExecutorCompletionService<Mier> eCS;// = new ExecutorCompletionService<Mier>(eS);
 	private Route shortestRoute = null;
 	private int actieveMieren = 0;
 	static ArrayList<Product> initialRoute;
@@ -23,14 +23,14 @@ public class AntColonyOptimization {
 	public ArrayList<Product> algoritme(){
 		ACODriver aco = new ACODriver();
 		for (int i = 1; i < AANTAL_MIEREN; i++) { 
-			eCS.submit(new Mier(aco, i));
+			eCS.submit(new Mier(aco));
 			actieveMieren++;
 			if (Math.random() > PROCESSING_CYCLE_PROBABILITY) {
 				procesMieren();
 			}
 		}
 		procesMieren();
-//		eS.shutdownNow();
+		eS.shutdownNow();
 		return shortestRoute.getOrder();		
 		
 	}

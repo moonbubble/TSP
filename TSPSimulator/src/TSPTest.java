@@ -43,13 +43,15 @@ public class TSPTest {
 		Product d4 = new Product("d", 5, 1);
 		Product e5 = new Product("e", 4, 2);
 		Product f6 = new Product("f", 2, 1);
+		Product g7 = new Product("g", 3, 3);
 		Order maan = new Order();
 		maan.voegProductToe(a1);
 		maan.voegProductToe(b2);
 		maan.voegProductToe(c3);
 		maan.voegProductToe(d4);
-//		maan.voegProductToe(e5);
-//		maan.voegProductToe(f6);
+		maan.voegProductToe(e5);
+		maan.voegProductToe(f6);
+		maan.voegProductToe(g7);
 		NewBruteForce nbf = new NewBruteForce(maan);
 //		nbf.getTotaal();
 		nbf.algoritme();
